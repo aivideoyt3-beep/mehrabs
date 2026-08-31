@@ -1,0 +1,1012 @@
+```html
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MEHRAB // CLASSIFIED</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Vazirmatn:wght@300;400;500;600;700;800&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+:root{
+    --red:#ff174f;
+    --pink:#ff4d79;
+    --white:#f5f5f7;
+    --muted:#858590;
+    --bg:#030305;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    background:var(--bg);
+    color:var(--white);
+    font-family:"Vazirmatn",sans-serif;
+}
+
+/* ================================
+   BACKGROUND
+================================ */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        radial-gradient(circle at 50% 45%,rgba(255,23,79,.11),transparent 30%),
+        radial-gradient(circle at 10% 90%,rgba(255,0,60,.05),transparent 25%);
+    pointer-events:none;
+}
+
+.noise{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.045;
+    z-index:100;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+/* ================================
+   LOGIN
+================================ */
+
+#login{
+    position:fixed;
+    inset:0;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:20;
+    transition:opacity 1s ease,transform 1s ease;
+}
+
+.login-wrap{
+    width:min(92%,500px);
+    text-align:center;
+}
+
+.system{
+    font-family:"Orbitron",sans-serif;
+    font-size:10px;
+    letter-spacing:4px;
+    color:#686873;
+    margin-bottom:28px;
+}
+
+.system span{
+    color:var(--red);
+}
+
+.lock{
+    width:76px;
+    height:76px;
+    margin:0 auto 35px;
+    border:1px solid rgba(255,255,255,.15);
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    position:relative;
+}
+
+.lock::before{
+    content:"";
+    position:absolute;
+    inset:-9px;
+    border:1px solid rgba(255,23,79,.15);
+    border-radius:50%;
+    animation:spin 12s linear infinite;
+}
+
+.lock-icon{
+    font-size:28px;
+}
+
+.login-title{
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(28px,7vw,48px);
+    font-weight:700;
+    letter-spacing:5px;
+    margin-bottom:13px;
+}
+
+.login-sub{
+    color:#777781;
+    font-size:12px;
+    letter-spacing:3px;
+    margin-bottom:40px;
+}
+
+.date-box{
+    position:relative;
+    width:100%;
+}
+
+.date-input{
+    width:100%;
+    height:58px;
+    border:1px solid rgba(255,255,255,.12);
+    outline:none;
+    background:rgba(255,255,255,.025);
+    color:white;
+    text-align:center;
+    font-family:"Orbitron",sans-serif;
+    font-size:15px;
+    letter-spacing:3px;
+    border-radius:4px;
+    transition:.3s;
+}
+
+.date-input:focus{
+    border-color:rgba(255,23,79,.6);
+    box-shadow:0 0 30px rgba(255,23,79,.08);
+}
+
+.date-input::placeholder{
+    color:#44444d;
+}
+
+.access-btn{
+    margin-top:12px;
+    width:100%;
+    height:58px;
+    border:1px solid var(--red);
+    background:var(--red);
+    color:white;
+    font-family:"Orbitron",sans-serif;
+    font-size:12px;
+    letter-spacing:3px;
+    cursor:pointer;
+    border-radius:4px;
+    transition:.3s;
+}
+
+.access-btn:hover{
+    background:transparent;
+    box-shadow:0 0 35px rgba(255,23,79,.18);
+}
+
+.error{
+    height:30px;
+    padding-top:12px;
+    color:#ff466d;
+    font-size:11px;
+}
+
+/* ================================
+   MAIN
+================================ */
+
+#main{
+    position:fixed;
+    inset:0;
+    display:none;
+    opacity:0;
+    overflow:hidden;
+    transition:opacity 1.5s ease;
+}
+
+.main-content{
+    position:absolute;
+    inset:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    z-index:5;
+    text-align:center;
+    padding:20px;
+}
+
+/* Top status */
+
+.status{
+    position:absolute;
+    top:28px;
+    left:35px;
+    right:35px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:"Orbitron",sans-serif;
+    font-size:8px;
+    letter-spacing:2px;
+    color:#4f4f58;
+}
+
+.status .live{
+    color:#6b6b74;
+}
+
+.status .live::before{
+    content:"";
+    display:inline-block;
+    width:5px;
+    height:5px;
+    background:#27e36a;
+    border-radius:50%;
+    margin-left:8px;
+    box-shadow:0 0 8px #27e36a;
+}
+
+/* Intro */
+
+.access-granted{
+    position:absolute;
+    top:26%;
+    font-family:"Orbitron",sans-serif;
+    color:#3ee67b;
+    font-size:10px;
+    letter-spacing:4px;
+    opacity:0;
+}
+
+.name{
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(45px,14vw,115px);
+    font-weight:900;
+    letter-spacing:8px;
+    line-height:1;
+    opacity:0;
+    transform:translateY(30px);
+    text-shadow:
+        0 0 20px rgba(255,23,79,.2),
+        0 0 70px rgba(255,23,79,.08);
+}
+
+.name span{
+    color:var(--red);
+}
+
+.birth-line{
+    margin-top:20px;
+    color:#5d5d67;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    letter-spacing:5px;
+    opacity:0;
+}
+
+/* ================================
+   HEART
+================================ */
+
+.heart-area{
+    position:relative;
+    width:230px;
+    height:230px;
+    margin:30px auto;
+    opacity:0;
+    transform:scale(.3);
+}
+
+.heart-glow{
+    position:absolute;
+    inset:25px;
+    border-radius:50%;
+    background:rgba(255,23,79,.18);
+    filter:blur(35px);
+    animation:heartGlow 1.3s ease-in-out infinite;
+}
+
+.heart{
+    position:absolute;
+    width:105px;
+    height:105px;
+    left:50%;
+    top:50%;
+    background:linear-gradient(135deg,#ff315f,#e9003c);
+    transform:translate(-50%,-42%) rotate(-45deg);
+    border-radius:9px;
+    box-shadow:
+        0 0 30px rgba(255,23,79,.65),
+        0 0 90px rgba(255,23,79,.25);
+    animation:heartbeat 1.25s ease-in-out infinite;
+}
+
+.heart::before,
+.heart::after{
+    content:"";
+    position:absolute;
+    width:105px;
+    height:105px;
+    background:linear-gradient(135deg,#ff315f,#e9003c);
+    border-radius:50%;
+}
+
+.heart::before{
+    top:-52px;
+    left:0;
+}
+
+.heart::after{
+    left:52px;
+    top:0;
+}
+
+/* ================================
+   MESSAGE
+================================ */
+
+.message{
+    max-width:650px;
+    opacity:0;
+    transform:translateY(20px);
+}
+
+.message .main-msg{
+    font-size:clamp(17px,4vw,25px);
+    line-height:2;
+    font-weight:500;
+}
+
+.message .main-msg strong{
+    color:#ff416b;
+}
+
+.joke{
+    margin-top:16px;
+    color:#666671;
+    font-size:12px;
+    line-height:2;
+}
+
+/* ================================
+   SURPRISE BUTTON
+================================ */
+
+.surprise{
+    position:absolute;
+    bottom:45px;
+    border:1px solid rgba(255,255,255,.12);
+    background:transparent;
+    color:#777780;
+    padding:13px 25px;
+    font-family:"Orbitron",sans-serif;
+    font-size:9px;
+    letter-spacing:2px;
+    cursor:pointer;
+    opacity:0;
+    transition:.4s;
+}
+
+.surprise:hover{
+    color:white;
+    border-color:var(--red);
+    box-shadow:0 0 25px rgba(255,23,79,.12);
+}
+
+/* ================================
+   CONFETTI
+================================ */
+
+.confetti{
+    position:absolute;
+    width:7px;
+    height:12px;
+    top:-20px;
+    z-index:30;
+    animation:confettiFall linear forwards;
+}
+
+/* ================================
+   FINAL MESSAGE
+================================ */
+
+.final-message{
+    position:fixed;
+    inset:0;
+    z-index:50;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(3,3,5,.92);
+    backdrop-filter:blur(15px);
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .8s;
+}
+
+.final-message.show{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.final-box{
+    text-align:center;
+    padding:30px;
+}
+
+.final-heart{
+    font-size:70px;
+    filter:drop-shadow(0 0 25px rgba(255,23,79,.6));
+    animation:heartbeat 1.2s infinite;
+}
+
+.final-title{
+    font-family:"Orbitron",sans-serif;
+    font-size:clamp(25px,7vw,50px);
+    margin:25px 0 15px;
+    letter-spacing:3px;
+}
+
+.final-text{
+    color:#aaaab3;
+    font-size:14px;
+    line-height:2.2;
+    max-width:500px;
+}
+
+.close{
+    margin-top:30px;
+    padding:11px 25px;
+    background:transparent;
+    color:#777;
+    border:1px solid #333;
+    cursor:pointer;
+}
+
+/* ================================
+   KEYFRAMES
+================================ */
+
+@keyframes heartbeat{
+    0%,100%{
+        transform:translate(-50%,-42%) rotate(-45deg) scale(1);
+    }
+    15%{
+        transform:translate(-50%,-42%) rotate(-45deg) scale(1.08);
+    }
+    30%{
+        transform:translate(-50%,-42%) rotate(-45deg) scale(1);
+    }
+    45%{
+        transform:translate(-50%,-42%) rotate(-45deg) scale(1.12);
+    }
+    60%{
+        transform:translate(-50%,-42%) rotate(-45deg) scale(1);
+    }
+}
+
+@keyframes heartGlow{
+    0%,100%{
+        transform:scale(.8);
+        opacity:.5;
+    }
+    50%{
+        transform:scale(1.2);
+        opacity:1;
+    }
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+@keyframes confettiFall{
+    to{
+        transform:translateY(110vh) rotate(720deg);
+        opacity:0;
+    }
+}
+
+@keyframes glitch{
+    0%{transform:translate(0)}
+    20%{transform:translate(-2px,2px)}
+    40%{transform:translate(2px,-2px)}
+    60%{transform:translate(-1px,1px)}
+    80%{transform:translate(1px,-1px)}
+    100%{transform:translate(0)}
+}
+
+/* ================================
+   MOBILE
+================================ */
+
+@media(max-width:600px){
+
+    .status{
+        top:20px;
+        left:18px;
+        right:18px;
+    }
+
+    .login-title{
+        letter-spacing:3px;
+    }
+
+    .name{
+        letter-spacing:4px;
+    }
+
+    .heart-area{
+        transform:scale(.85);
+        margin:5px auto;
+    }
+
+    .message .main-msg{
+        font-size:16px;
+    }
+
+    .joke{
+        font-size:11px;
+    }
+
+    .surprise{
+        bottom:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="noise"></div>
+
+<!-- ================================
+     LOGIN
+================================ -->
+
+<section id="login">
+
+    <div class="login-wrap">
+
+        <div class="system">
+            SYSTEM // <span>CLASSIFIED</span>
+        </div>
+
+        <div class="lock">
+            <div class="lock-icon">🔐</div>
+        </div>
+
+        <h1 class="login-title">
+            ACCESS
+        </h1>
+
+        <div class="login-sub">
+            THIS MESSAGE IS ONLY FOR MEHRAB
+        </div>
+
+        <div class="date-box">
+
+            <input
+                id="password"
+                class="date-input"
+                type="text"
+                inputmode="numeric"
+                autocomplete="off"
+                placeholder="YYYY / MM / DD"
+            >
+
+            <button class="access-btn" onclick="unlock()">
+                ENTER THE SYSTEM
+            </button>
+
+            <div id="error" class="error"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     MAIN
+================================ -->
+
+<section id="main">
+
+    <div class="status">
+        <div>MEHRAB.EXE</div>
+        <div class="live">SYSTEM ONLINE</div>
+    </div>
+
+    <div class="main-content">
+
+        <div id="granted" class="access-granted">
+            ACCESS GRANTED ✓
+        </div>
+
+        <div id="name" class="name">
+            MEHR<span>AB</span>
+        </div>
+
+        <div id="birth" class="birth-line">
+            ANOTHER YEAR // UNLOCKED
+        </div>
+
+        <div id="heartArea" class="heart-area">
+
+            <div class="heart-glow"></div>
+
+            <div class="heart"></div>
+
+        </div>
+
+        <div id="message" class="message">
+
+            <div class="main-msg">
+
+                مهراب،
+                <strong>تولدت مبارک ❤️</strong>
+
+            </div>
+
+            <div class="joke">
+
+                یک سال دیگه هم با موفقیت از مرحله‌ی
+                «زنده موندن» عبور کردی 😂
+                <br>
+
+                +1 Year Experience &nbsp; • &nbsp;
+                +0 Wisdom &nbsp; • &nbsp;
+                +∞ Memories
+
+            </div>
+
+        </div>
+
+        <button id="surprise" class="surprise" onclick="surprise()">
+            DON'T CLICK THIS 👀
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================================
+     FINAL
+================================ -->
+
+<div id="final" class="final-message">
+
+    <div class="final-box">
+
+        <div class="final-heart">❤️</div>
+
+        <div class="final-title">
+            HAPPY BIRTHDAY
+        </div>
+
+        <div class="final-text">
+
+            مهراب جان،
+            امیدوارم سال جدید زندگیت پر از اتفاق‌های خوب،
+            خنده‌های واقعی و خاطره‌های خفن باشه.
+
+            <br><br>
+
+            و البته امیدوارم سال بعد
+            مجبور نباشم دوباره این سایت رو برات بسازم...
+            چون دیگه ایده کم میارم 😂
+
+            <br><br>
+
+            <strong>دوستت دارم رفیق ❤️</strong>
+
+        </div>
+
+        <button class="close" onclick="closeFinal()">
+            BACK
+        </button>
+
+    </div>
+
+</div>
+
+
+<script>
+
+/* ==========================================
+   تنظیمات سایت
+========================================== */
+
+/*
+   تاریخ تولد واقعی مهراب را اینجا بنویس.
+
+   مثال:
+   1385/05/20
+
+   می‌توانی با / یا - وارد کنی.
+*/
+
+const MEHRAB_BIRTHDAY = "1385/05/20";
+
+
+/* ==========================================
+   ورود
+========================================== */
+
+function normalize(value){
+
+    return value
+        .replace(/-/g,"/")
+        .replace(/\s/g,"")
+        .trim();
+
+}
+
+
+function unlock(){
+
+    const input = document
+        .getElementById("password")
+        .value;
+
+    const error = document
+        .getElementById("error");
+
+    if(
+        normalize(input) ===
+        normalize(MEHRAB_BIRTHDAY)
+    ){
+
+        error.textContent = "";
+
+        const login =
+            document.getElementById("login");
+
+        const main =
+            document.getElementById("main");
+
+        login.style.opacity = "0";
+        login.style.transform = "scale(1.08)";
+
+        setTimeout(()=>{
+
+            login.style.display = "none";
+
+            main.style.display = "block";
+
+            setTimeout(()=>{
+
+                main.style.opacity = "1";
+
+                startExperience();
+
+            },100);
+
+        },900);
+
+    }
+
+    else{
+
+        error.textContent =
+            "IDENTITY VERIFICATION FAILED 😐";
+
+        document
+            .getElementById("password")
+            .style.animation = "glitch .25s";
+
+        setTimeout(()=>{
+
+            document
+                .getElementById("password")
+                .style.animation = "";
+
+        },300);
+
+    }
+
+}
+
+
+/* ==========================================
+   Enter
+========================================== */
+
+document
+    .getElementById("password")
+    .addEventListener(
+        "keydown",
+        function(e){
+
+            if(e.key === "Enter"){
+                unlock();
+            }
+
+        }
+    );
+
+
+/* ==========================================
+   تجربه اصلی
+========================================== */
+
+function startExperience(){
+
+    const granted =
+        document.getElementById("granted");
+
+    const name =
+        document.getElementById("name");
+
+    const birth =
+        document.getElementById("birth");
+
+    const heart =
+        document.getElementById("heartArea");
+
+    const message =
+        document.getElementById("message");
+
+    const surpriseBtn =
+        document.getElementById("surprise");
+
+
+    /* Access granted */
+
+    setTimeout(()=>{
+
+        granted.style.transition = "opacity 1s";
+        granted.style.opacity = "1";
+
+    },400);
+
+
+    /* Name */
+
+    setTimeout(()=>{
+
+        name.style.transition =
+            "opacity 1s ease, transform 1s ease";
+
+        name.style.opacity = "1";
+        name.style.transform = "translateY(0)";
+
+    },1500);
+
+
+    /* Birth line */
+
+    setTimeout(()=>{
+
+        birth.style.transition = "opacity 1s";
+        birth.style.opacity = "1";
+
+    },2300);
+
+
+    /* Heart */
+
+    setTimeout(()=>{
+
+        heart.style.transition =
+            "opacity 1.3s ease, transform 1.3s cubic-bezier(.17,.67,.3,1.3)";
+
+        heart.style.opacity = "1";
+        heart.style.transform = "scale(1)";
+
+    },2900);
+
+
+    /* Message */
+
+    setTimeout(()=>{
+
+        message.style.transition =
+            "opacity 1s ease, transform 1s ease";
+
+        message.style.opacity = "1";
+        message.style.transform = "translateY(0)";
+
+    },4100);
+
+
+    /* Button */
+
+    setTimeout(()=>{
+
+        surpriseBtn.style.transition = "opacity 1s";
+        surpriseBtn.style.opacity = "1";
+
+    },5500);
+
+}
+
+
+/* ==========================================
+   سورپرایز
+========================================== */
+
+function surprise(){
+
+    createConfetti();
+
+    setTimeout(()=>{
+
+        document
+            .getElementById("final")
+            .classList.add("show");
+
+    },900);
+
+}
+
+
+/* ==========================================
+   Confetti
+========================================== */
+
+function createConfetti(){
+
+    const symbols = [
+        "❤️",
+        "💖",
+        "💕",
+        "✨",
+        "🎉",
+        "⭐"
+    ];
+
+    for(let i=0;i<80;i++){
+
+        const item =
+            document.createElement("div");
+
+        item.className = "confetti";
+
+        item.innerText =
+            symbols[
+                Math.floor(
+                    Math.random()*symbols.length
+                )
+            ];
+
+        item.style.left =
+            Math.random()*100 + "%";
+
+        item.style.fontSize =
+            (10 + Math.random()*18) + "px";
+
+        item.style.animationDuration =
+            (2 + Math.random()*3) + "s";
+
+        item.style.animationDelay =
+            Math.random()*1.5 + "s";
+
+        document
+            .getElementById("main")
+            .appendChild(item);
+
+        setTimeout(()=>{
+
+            item.remove();
+
+        },6000);
+
+    }
+
+}
+
+
+/* ==========================================
+   بستن سورپرایز
+========================================== */
+
+function closeFinal(){
+
+    document
+        .getElementById("final")
+        .classList.remove("show");
+
+}
+
+</script>
+
+</body>
+</html>
+```
